@@ -1,0 +1,14 @@
+{
+  "name": "chat-service",
+  "version": "1.0.0",
+  "description": "Chat Service for handling real-time communication",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.8.0",
+    "express": "^4.17.1"
+  }
+}
+
