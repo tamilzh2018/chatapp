@@ -1,0 +1,30 @@
+To set the JWT secret and other config externaly, you simply need to choose a secure, random string and store it in your configuration file or environment variables. The JWT secret is used to sign and verify the JWT tokens for authentication.
+Here’s how you can set it up:
+1.	Choose a Secure JWT Secret: You can generate a random, secure string to use as your JWT secret. You can use an online generator or create one using a command-line tool. Here’s an example using OpenSSL:
+openssl rand -base64 32
+2.	Store the JWT Secret in a Configuration File: Add the JWT secret to your configuration file. For example, in user-service/config/config.js:
+module.exports = {
+  mongodbUri: 'mongodb://your_mongo_user:your_mongo_password@localhost:27017/users',
+  jwtSecret: 'your_secure_random_string'
+};
+3.	Use Environment Variables (Recommended for Production): For security reasons, it is recommended to store the JWT secret in an environment variable, especially for production environments. You can create a .env file in your project root directory:
+.env file:
+JWT_SECRET=your_secure_random_string
+4.	Access the JWT Secret in Your Code: Use the dotenv package to load environment variables from the .env file. Update your configuration file to read the JWT secret from environment variables:
+Install dotenv:
+npm install dotenv
+
+Update user-service/config/config.js:
+require('dotenv').config();
+
+module.exports = {
+  mongodbUri: 'mongodb://your_mongo_user:your_mongo_password@localhost:27017/users',
+  jwtSecret: process.env.JWT_SECRET
+};
+Ensure that you load the .env file at the start of your application:
+user-service/server.js:
+require('dotenv').config(); // Load environment variables at the beginning
+//your remaining codes
+
+With the JWT secret set up, your application can securely sign and verify JWT tokens for user authentication.
+
